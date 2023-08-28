@@ -1,14 +1,14 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-class AppUi extends StatefulWidget {
-  const AppUi({super.key});
+class AppInitialScreen extends StatefulWidget {
+  const AppInitialScreen({super.key});
 
   @override
-  State<AppUi> createState() => _AppUiState();
+  State<AppInitialScreen> createState() => _AppInitialScreenState();
 }
 
-class _AppUiState extends State<AppUi> {
+class _AppInitialScreenState extends State<AppInitialScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
