@@ -1,126 +1,175 @@
 import 'package:flutter/material.dart';
 
 class AddTasklist extends StatefulWidget {
-  const AddTasklist({super.key});
-
   @override
   State<AddTasklist> createState() => _AddTasklistState();
 }
 
 class _AddTasklistState extends State<AddTasklist> {
-  final titleController = TextEditingController();
-  final startDateController = TextEditingController();
-  final dueDateController = TextEditingController();
-  final repeatController = TextEditingController();
-  final priorityController = TextEditingController();
-  final locationController = TextEditingController();
-  final reminderController = TextEditingController();
-  final List<Map<String, dynamic>> tasks = [];
+  //to store title data
+  TextEditingController titleController = TextEditingController();
+  //to store description data
+  TextEditingController descriptionController = TextEditingController();
+  //it is  default time for each of the respective fields
+  DateTime startDate = DateTime.now();
+  TimeOfDay startTime = TimeOfDay.now();
+  DateTime dueDate = DateTime.now();
+  TimeOfDay dueTime = TimeOfDay.now();
 
-  Widget buildPropertyInput(
-      IconData icon, String label, TextEditingController controller) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Icon(icon),
-          SizedBox(width: 10),
-          Expanded(
-            child: TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                labelText: label,
-              ),
-            ),
-          ),
-        ],
-      ),
+  Future<void> _selectStartDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: startDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(3000),
     );
+    if (pickedDate != null && pickedDate != startDate) {
+      setState(() {
+        startDate = pickedDate;
+      });
+    }
+  }
+
+  Future<void> _selectStartTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: startTime,
+    );
+    if (pickedTime != null) {
+      setState(() {
+        startTime = pickedTime;
+      });
+    }
+  }
+
+  Future<void> _selectDueDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: dueDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (pickedDate != null && pickedDate != dueDate) {
+      setState(() {
+        dueDate = pickedDate;
+      });
+    }
+  }
+
+  Future<void> _selectDueTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: dueTime,
+    );
+    if (pickedTime != null) {
+      setState(() {
+        dueTime = pickedTime;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('ToDo List App'),
-        ),
-        body: SingleChildScrollView(
+      appBar: AppBar(
+        title: Text('Add Task'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                child: Text(
-                  'Add a New Task',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(labelText: 'Add Title'),
               ),
-              buildPropertyInput(
-                Icons.title,
-                'Title',
-                titleController,
+              SizedBox(
+                height: 50.0,
               ),
-              buildPropertyInput(
-                Icons.calendar_today,
-                'Start Date',
-                startDateController,
+              TextField(
+                controller: descriptionController,
+                decoration: InputDecoration(labelText: 'Add Description'),
               ),
-              buildPropertyInput(
-                Icons.lock_clock,
-                'Due Date',
-                dueDateController,
+              SizedBox(height: 50.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => _selectStartDate(context),
+                      child: AbsorbPointer(
+                        child: TextField(
+                          controller: TextEditingController(
+                              text: startDate.toString().split(' ')[0]),
+                          decoration: InputDecoration(labelText: 'Start Date'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () => _selectStartDate(context),
+                  ),
+                  SizedBox(width: 16.0),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => _selectStartTime(context),
+                      child: AbsorbPointer(
+                        child: TextField(
+                          controller: TextEditingController(
+                              text: startTime.format(context)),
+                          decoration: InputDecoration(labelText: 'Start Time'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.access_time),
+                    onPressed: () => _selectStartTime(context),
+                  ),
+                ],
               ),
-              buildPropertyInput(
-                Icons.repeat,
-                'Repeat',
-                repeatController,
-              ),
-              buildPropertyInput(
-                Icons.flag,
-                'Priority',
-                priorityController,
-              ),
-              buildPropertyInput(
-                Icons.location_on,
-                'Location',
-                locationController,
-              ),
-              buildPropertyInput(
-                Icons.notifications,
-                'reminder',
-                reminderController,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: ElevatedButton(
-                  onPressed: () {
-                    tasks.add({
-                      'title': titleController.text,
-                      'startDate': startDateController.text,
-                      'dueDate': dueDateController.text,
-                      'repeat': repeatController.text,
-                      'priorityColor': priorityController.text,
-                      'location': locationController.text,
-                    });
-                    setState(() {});
-                  },
-                  child: Text('Add Task'),
-                ),
+              SizedBox(height: 50.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => _selectDueDate(context),
+                      child: AbsorbPointer(
+                        child: TextField(
+                          controller: TextEditingController(
+                              text: dueDate.toString().split(' ')[0]),
+                          decoration: InputDecoration(labelText: 'Due Date'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: () => _selectDueDate(context),
+                  ),
+                  SizedBox(width: 16.0),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => _selectDueTime(context),
+                      child: AbsorbPointer(
+                        child: TextField(
+                          controller: TextEditingController(
+                              text: dueTime.format(context)),
+                          decoration: InputDecoration(labelText: 'Due Time'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.access_time),
+                    onPressed: () => _selectDueTime(context),
+                  ),
+                ],
               ),
             ],
           ),
-        ));
-  }
-
-  Widget buildPropertyDisplay(IconData icon, String label, String value) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Icon(icon),
-          SizedBox(width: 10),
-          Text('$label: $value'),
-        ],
+        ),
       ),
     );
   }
