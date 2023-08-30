@@ -1,30 +1,21 @@
-// import 'add_task_list.dart';
 import 'package:flutter/material.dart';
 
-// class PropertyDisplay extends StatelessWidget {
-//   final IconData icon;
-//   final String label;
-//   final String value;
+class Task {
+  final String title;
+  final String description;
+  final DateTime startDate;
+  final TimeOfDay startTime;
+  final DateTime dueDate;
+  final TimeOfDay dueTime;
+  bool isCompleted; // Add the isCompleted property
 
-//   PropertyDisplay(
-//       {required this.icon, required this.label, required this.value});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: EdgeInsets.symmetric(vertical: 20),
-//       child: Row(
-//         children: [
-//           Icon(icon),
-//           SizedBox(width: 5),
-//           Text('$label: $value'),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// void main() {
-//   runApp(MaterialApp(home: AddTasklist()));
-// }
-// //
+  Task({
+    required this.title,
+    required this.description,
+    required this.startDate,
+    required this.startTime,
+    required this.dueDate,
+    required this.dueTime,
+    this.isCompleted = false, // Initialize isCompleted to false by default
+  });
+}
