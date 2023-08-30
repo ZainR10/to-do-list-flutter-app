@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: appthemedata,
       debugShowCheckedModeBanner: false,
-      home: AddTasklist(),
+      home: AppInitialScreen(
+        tasks: [],
+      ),
     );
   }
 }
