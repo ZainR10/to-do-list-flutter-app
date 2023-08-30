@@ -46,13 +46,7 @@ class _AppInitialScreenState extends State<AppInitialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Tasks'),
-        actions: [
-          Padding(
-            padding: EdgeInsets.all(5),
-            child: Icon(Icons.search),
-          ),
-        ],
+        title: const Text('Tasks'),
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.purpleAccent,
