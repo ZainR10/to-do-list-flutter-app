@@ -58,6 +58,7 @@ class _AppInitialScreenState extends State<AppInitialScreen> {
             width: 10,
           ),
           CircleAvatar(
+            backgroundImage: AssetImage('assets/profile pic.jpg'),
             radius: 20,
           ),
         ]),
