@@ -18,12 +18,12 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Sign Up",
-          style: TextStyle(fontFamily: 'VT323'),
-        ),
-      ),
+      // appBar: AppBar(
+      //   title: const Text(
+      //     "Sign Up",
+      //     style: TextStyle(fontFamily: 'VT323'),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -31,6 +31,16 @@ class _SignUpState extends State<SignUp> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
+                SizedBox(
+                  height: 100,
+                ),
+                Text(
+                  'Create your Account',
+                  style: TextStyle(fontSize: 35),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
                 TextFormField(
                   controller: userNameController,
                   validator: (String? value) {
@@ -40,7 +50,7 @@ class _SignUpState extends State<SignUp> {
                     return null;
                   },
                   decoration: const InputDecoration(
-                    suffix: Icon(Icons.remove_red_eye),
+                    // suffix: Icon(Icons.remove_red_eye),
                     border: OutlineInputBorder(),
                     labelText: 'Enter your name',
                   ),
@@ -60,7 +70,8 @@ class _SignUpState extends State<SignUp> {
                     return null;
                   },
                   decoration: const InputDecoration(
-                    // border: OutlineInputBorder(),
+                    // suffix: Icon(Icons.remove_red_eye),
+                    border: OutlineInputBorder(),
                     labelText: 'Enter your email',
                   ),
                 ),
@@ -82,7 +93,8 @@ class _SignUpState extends State<SignUp> {
                     return null;
                   },
                   decoration: const InputDecoration(
-                    // border: OutlineInputBorder(),
+                    // suffix: Icon(Icons.remove_red_eye),
+                    border: OutlineInputBorder(),
                     labelText: 'Enter your password',
                   ),
                 ),
