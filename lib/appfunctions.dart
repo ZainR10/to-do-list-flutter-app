@@ -19,3 +19,7 @@ class Task {
     this.isCompleted = false, // Initialize isCompleted to false by default
   });
 }
+
+void deleteTask(List<Task> tasks, int index) {
+  tasks.removeAt(index);
+}

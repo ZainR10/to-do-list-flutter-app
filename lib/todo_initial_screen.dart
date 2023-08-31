@@ -42,6 +42,12 @@ class _AppInitialScreenState extends State<AppInitialScreen> {
     tasks = List.from(widget.tasks); // Initialize tasks from the widget
   }
 
+  void _deleteTask(int index) {
+    setState(() {
+      deleteTask(tasks, index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,16 +73,22 @@ class _AppInitialScreenState extends State<AppInitialScreen> {
         itemBuilder: (context, index) {
           Task task = tasks[index];
           return ListTile(
-            trailing: Checkbox(
-              shape: CircleBorder(eccentricity: 0),
-              value: task.isCompleted, // Use task's isCompleted property
-              onChanged: (newValue) {
-                setState(() {
-                  task.isCompleted =
-                      newValue!; // Update task's completion status
-                });
-              },
-            ),
+            trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+              Checkbox(
+                shape: CircleBorder(eccentricity: 0),
+                value: task.isCompleted, // Use task's isCompleted property
+                onChanged: (newValue) {
+                  setState(() {
+                    task.isCompleted =
+                        newValue!; // Update task's completion status
+                  });
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () => _deleteTask(index),
+              )
+            ]),
             title: Text(
               task.title,
               style: TextStyle(
