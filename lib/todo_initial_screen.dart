@@ -52,10 +52,19 @@ class _AppInitialScreenState extends State<AppInitialScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tasks'),
+        title: Row(children: [
+          Text('HI,'),
+          SizedBox(
+            width: 10,
+          ),
+          CircleAvatar(
+            radius: 20,
+          ),
+        ]),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.purpleAccent,
+        backgroundColor: Color.fromARGB(0, 136, 8, 153),
+        color: Color.fromARGB(120, 136, 9, 0),
         items: [Center(child: Icon(Icons.add))],
         onTap: (int index) {
           Navigator.push(
